@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Видео с MindAR.js</title>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image.prod.js"></script>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <title>AR Видео</title>
 </head>
-<body>
-    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;">
-        <mindar-image-viewer id="ar-viewer" filterMinCF="0.0001" filterBeta="0.001">
-            <mindar-image-target targetUrl="target.mind">
-                <video id="ar-video" src="https://youtu.be/UwaE3hFF_yU" autoplay loop></video>
-            </mindar-image-target>
-        </mindar-image-viewer>
-    </div>
+<body style="text-align: center;">
+    <h2>Наведи камеру на изображение</h2>
+    <video id="arVideo" width="320" height="240" controls>
+        <source src="https://https://youtu.be/UwaE3hFF_yU" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    <script>
+        // Автостарт видео при загрузке страницы
+        window.onload = function() {
+            document.getElementById("arVideo").play();
+        };
+    </script>
 </body>
 </html>
