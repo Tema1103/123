@@ -13,8 +13,8 @@
       device-orientation-permission-ui="enabled: false"
     >
       <a-assets>
-        <!-- ТВОЁ ВИДЕО -->
-        <video id="myVideo" src="https://drive.google.com/file/d/1OkWeBZleS360y9D500NwfyngYKT6p0OK/view?usp=drive_link" preload="auto" loop></video>
+        <!-- ВИДЕО -->
+        <video id="myVideo" src="https://drive.google.com/file/d/1OkWeBZleS360y9D500NwfyngYKT6p0OK/view?usp=drive_link" preload="auto" loop playsinline muted></video>
 
         <!-- КАРТИНКА-МАРКЕР -->
         <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png" />
@@ -22,18 +22,34 @@
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!-- AR-ОБЪЕКТ, КОТОРЫЙ ПОЯВЛЯЕТСЯ НА МАРКЕРЕ -->
+      <!-- AR-ОБЪЕКТ (ВИДЕО) -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- Само видео -->
         <a-video
+          id="videoPlane"
           src="#myVideo"
           position="0 0 0.1"
           width="1"
           height="0.5"
-          autoplay
-          loop
+          visible="false"
         ></a-video>
       </a-entity>
     </a-scene>
+
+    <script>
+      const video = document.querySelector("#myVideo");
+      const videoPlane = document.querySelector("#videoPlane");
+
+      // Автозапуск видео при обнаружении маркера
+      videoPlane.addEventListener("targetFound", () => {
+        videoPlane.setAttribute("visible", "true");
+        video.play();
+      });
+
+      // Остановка видео, если маркер пропадает
+      videoPlane.addEventListener("targetLost", () => {
+        video.pause();
+        videoPlane.setAttribute("visible", "false");
+      });
+    </script>
   </body>
 </html>
