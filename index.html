@@ -3,19 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Видео</title>
+    <title>AR Видео с MindAR.js</title>
+
+    <!-- Подключаем библиотеки MindAR.js и A-Frame -->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image-aframe.prod.js"></script>
+
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #start-button { 
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%);
+            padding: 10px 20px; font-size: 20px; 
+            background-color: #007bff; color: white; border: none; cursor: pointer;
+        }
+    </style>
 </head>
-<body style="text-align: center;">
-    <h2>Наведи камеру на изображение</h2>
-    <video id="arVideo" width="320" height="240" controls>
-        <source src="https://https://youtu.be/UwaE3hFF_yU" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-    </video>
+<body>
+    <!-- Кнопка для запуска камеры -->
+    <button id="start-button">Запустить AR</button>
+
+    <!-- AR-сцена -->
+    <a-scene mindar-image="imageTargetSrc: ./target.mind;" embedded arjs>
+        <!-- AR-видео -->
+        <a-video src="https://youtu.be/UwaE3hFF_yU" width="1.5" height="1" position="0 0 0"></a-video>
+    </a-scene>
+
     <script>
-        // Автостарт видео при загрузке страницы
-        window.onload = function() {
-            document.getElementById("arVideo").play();
-        };
+        // Запуск AR по нажатию на кнопку
+        document.getElementById("start-button").addEventListener("click", function() {
+            document.querySelector("a-scene").setAttribute("mindar-image", "autoStart: true");
+            this.style.display = "none"; // Скрываем кнопку
+        });
     </script>
 </body>
 </html>
